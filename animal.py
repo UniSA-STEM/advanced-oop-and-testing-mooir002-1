@@ -7,9 +7,11 @@ Username: mooir002
 This is my own work as defined by the University's Academic Integrity Policy.
 """
 
+import datetime
 
 
 class Animal:
+
     def __init__(self, name: str, age: int, gender: str, species: str, diet: str):
         self.__name = name
         self.__age = age
@@ -71,3 +73,91 @@ class Bird(Animal):
         print ("Squark! Chirp! Whistle!")
 
     #def fly(self):
+
+
+class HealthEntry:
+
+    def __init__(self, id: int, observation: str, medication: str, date: datetime, animal: Animal):
+        self.__id = id
+        self.__observation = observation
+        self.__medication = medication
+        self.__date = date
+        self.__animal = animal
+
+    # Getters and setters
+
+    def get_id(self):
+        return self.__id
+
+    def get_observation(self):
+        return self.__observation
+
+    def get_medication(self):
+        return self.__medication
+
+    def get_date(self):
+        return self.__date
+
+    def get_animal(self):
+        return self.__animal
+
+    # Properties
+
+    id = property(get_id)
+    observation = property(get_observation)
+    medication = property(get_medication)
+    date = property(get_date)
+    animal = property(get_animal)
+
+    # Methods
+
+    def __str__(self):
+        return(f"""
+        | HEALTH RECORD ENTRY |
+        ID: {self.id}
+        DATE: {self.date.strftime('%H:%M:%S %d/%m/%Y')} 
+        OBSERVATION: {self.observation} 
+        MEDICATION: {self.medication}""")
+
+    def delete(self):
+        del self
+
+class HealthRecord:
+
+    def __init__(self, id: int, animal: Animal, entries: dict):
+        self.__id = id
+        self.__animal = animal
+        self.__entries = entries
+
+    # Getters and setters
+
+    def get_id(self):
+        return self.__id
+
+    def get_animal(self):
+        return self.__animal
+
+    def get_entries(self):
+        return self.__entries
+
+    def set_entry(self, new_entry_key, new_entry):
+        self.__entries[new_entry_key] = new_entry
+
+    # Properties
+
+    entries = property(get_entries)
+    animal = property(get_animal)
+
+    # Methods
+
+    def __str__(self):
+        return(f"Health Record | ID: {self.__id} | Animal: {self.__animal.name} | Entries: {len(self.__entries)} ")
+
+    def add_entry(self, health_entry):
+
+        if isinstance(health_entry, HealthEntry) and health_entry.animal == self.__animal:
+            self.set_entry(health_entry.date, health_entry)
+        else:
+            print("What you entered is either not a valid health entry or is a health entry for a different animal")
+            raise TypeError("The entry must be of type HealthEntry")
+
