@@ -11,14 +11,17 @@ from animal import *
 from enclosure import *
 from staff import *
 
-tiko = Bird("Tiko", 5, "Male", "Toco Toucan", "fruit", False)
-massa = Bird("Massa", 1, "Female", "Budgee", "seeds", False)
+tiko = Bird("Tiko", 5, "Male", "Toco Toucan", "fruit", False, False, False)
+massa = Bird("Massa", 1, "Female", "Budgee", "seeds", False, False, False)
 record = HealthRecord(213, tiko, {})
-entry = HealthEntry(123,"Tiko is looking good", "N/A", datetime.datetime.now(), tiko)
-entry2 = HealthEntry(1233,"Tiko is feeling unwell", "Panadol", datetime.datetime.now(), tiko)
-entry3 = HealthEntry(1233,"Tiko is feeling unwell", "Panadol", datetime.datetime.now(), massa)
+entry = HealthEntry("Tiko is looking good", "N/A", datetime.datetime.now(), tiko)
+entry2 = HealthEntry("Tiko is feeling unwell", "Panadol", datetime.datetime.now(), tiko)
+entry3 = HealthEntry("Tiko is much improved", "N/A", datetime.datetime.now(), tiko)
 
 record.add_entry(entry)
 record.add_entry(entry2)
 record.add_entry(entry3)
-print(record)
+print(record.entries)
+print(entry)
+print(entry2)
+print(entry3)

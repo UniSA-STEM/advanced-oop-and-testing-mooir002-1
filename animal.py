@@ -12,12 +12,14 @@ import datetime
 
 class Animal:
 
-    def __init__(self, name: str, age: int, gender: str, species: str, diet: str):
+    def __init__(self, name: str, age: int, gender: str, species: str, diet: str, injured = False, sick = False):
         self.__name = name
         self.__age = age
         self.__gender = gender
         self.__species = species
         self.__diet = diet
+        self.__injured = injured
+        self.__sick = sick
 
     # Getters and setters
 
@@ -39,6 +41,18 @@ class Animal:
     def get_diet(self):
         return self.__diet
 
+    def get_injured(self):
+        return self.__injured
+
+    def set_injured(self, value: bool):
+        self.__injured = value
+
+    def get_sick(self):
+        return self.__sick
+
+    def set_sick(self):
+        return self.__sick
+
     # Methods
 
     def cry(self):
@@ -57,10 +71,12 @@ class Animal:
     age = property(get_age)
     gender = property(get_gender)
     diet = property(get_diet)
+    injured = property(get_injured, set_injured)
+    sick = property (get_sick, set_sick)
 
 class Bird(Animal):
-    def __init__(self, name, age, gender, species, diet, flightless: bool):
-        super().__init__(name, age, gender, species, diet)
+    def __init__(self, name, age, gender, species, diet, injured, sick, flightless: bool):
+        super().__init__(name, age, gender, species, diet, injured, sick)
         self.__flightless = flightless
 
     def __str__(self):
@@ -77,12 +93,17 @@ class Bird(Animal):
 
 class HealthEntry:
 
-    def __init__(self, id: int, observation: str, medication: str, date: datetime, animal: Animal):
-        self.__id = id
+    next_id = 1
+    health_entry_instances = []
+
+    def __init__(self, observation: str, medication: str, date: datetime, animal: Animal):
+        self.__id = HealthEntry.next_id
         self.__observation = observation
         self.__medication = medication
         self.__date = date
         self.__animal = animal
+        HealthEntry.next_id += 1
+        HealthEntry.health_entry_instances.append (self)
 
     # Getters and setters
 
@@ -115,12 +136,10 @@ class HealthEntry:
         return(f"""
         | HEALTH RECORD ENTRY |
         ID: {self.id}
-        DATE: {self.date.strftime('%H:%M:%S %d/%m/%Y')} 
+        DATE/TIME: {self.date.strftime('%H:%M:%S %d/%m/%Y')} 
         OBSERVATION: {self.observation} 
         MEDICATION: {self.medication}""")
 
-    def delete(self):
-        del self
 
 class HealthRecord:
 
@@ -155,9 +174,26 @@ class HealthRecord:
 
     def add_entry(self, health_entry):
 
+        """Checks to see if the health entry is a valid:
+                - Does the object exist?
+                - Does the health entry animal match the animal in the health record?
+           Uses the set_entry function to add the entry to the record:
+                - dictionary key is the date
+                - dictionary value is the entry object
+           Type validation is enforced to ensure that only health entries are added"""
+
         if isinstance(health_entry, HealthEntry) and health_entry.animal == self.__animal:
-            self.set_entry(health_entry.date, health_entry)
+            self.set_entry(health_entry.id, health_entry)
         else:
-            print("What you entered is either not a valid health entry or is a health entry for a different animal")
+            print("What you entered is either not a valid health entry, or is a health entry for a different animal")
             raise TypeError("The entry must be of type HealthEntry")
 
+    def remove_entry(self, entry_key):
+
+        """Removes a health entry from the health record"""
+
+        if entry_key in self.__entries:
+            del self.__entries[entry_key]
+            print(f"Health entry with ID: {entry_key} removed successfully")
+        else:
+            print("No such entry exists within this health record")
