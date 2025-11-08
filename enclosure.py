@@ -9,14 +9,17 @@ This is my own work as defined by the University's Academic Integrity Policy.
 
 class Enclosure:
 
-    def __init__(self, enclosure_id: int, name: str, size: int, biome: str, cleanliness: float, animals: list):
-        self.__enclosure_id = enclosure_id
+    next_id = 1
+
+    def __init__(self, name: str, size: int, biome: str, animals: list):
+        self.__enclosure_id = Enclosure.next_id
         self.__name = name
         self.__size = size
         self.__biome = biome
-        self.__cleanliness = cleanliness
+        self.__cleanliness = float(100)
         self.__occupants = []
         self.__animals = animals
+        Enclosure.next_id += 1
 
     # Getters & Setters
 
@@ -41,8 +44,26 @@ class Enclosure:
     def get_occupants(self):
         return self.__occupants
 
+    def set_occupants(self, new_occupant):
+
+        for permitted_type in self.animals:
+
+            if isinstance(new_occupant, permitted_type):
+                self.__occupants.append(new_occupant)
+                print (f"added a new occupant '{new_occupant.name}' to the {self.name} enclosure")
+                new_occupant.enclosure = self
+                break
+        else:
+            print(f"The {self.name} enclosure is not equipped to house {new_occupant.name}")
+
     def get_animals(self):
         return self.__animals
+
+    def get_animal_names(self):
+        output = ""
+        for item in self.__animals:
+            output += (f"{item.__name__}, ")
+        return output
 
     # Properties
 
@@ -51,7 +72,7 @@ class Enclosure:
     size = property(get_size)
     biome = property(get_biome)
     cleanliness = property(get_cleanliness)
-    occupants = property(get_occupants)
+    occupants = property(get_occupants, set_occupants)
     animals = property(get_animals)
 
     # Methods
@@ -61,21 +82,11 @@ class Enclosure:
                 | ZOO ENCLOSURE |
                 NAME: {self.__name}
                 BIOME: {self.__biome}
-                SIZE: {self.__size} square meters
+                SIZE: {self.__size}m\u00b2
                 CLEANLINESS: {self.__cleanliness}
+                PERMITTED ANIMALS: {self.get_animal_names()}
                 OCCUPANTS: Currently housing {len(self.__occupants)} animal(s)
                 """)
-
-    def add_occupant(self, new_occupant):
-
-        for permitted_type in self.animals:
-
-            if isinstance(new_occupant, permitted_type):
-                self.__occupants.append(new_occupant)
-                print (f"added a new occupant '{new_occupant.name}' to the {self.name} enclosure")
-                new_occupant.enclosure = self
-            else:
-                print(f"{self.name} is not equipped to house {new_occupant.name}")
 
     def remove_occupant(self, occupant):
 

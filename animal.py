@@ -117,7 +117,49 @@ class Mammal(Animal):
     def cry(self):
         print("*generic mammalian wail*")
 
+class Reptile(Animal):
 
+    def __init__(self, name, age, gender, species, diet, injured, sick):
+        super().__init__(name, age, gender, species, diet, injured, sick)
+
+    def __str__(self):
+        return f"A cold blooded reptile called {self.name}"
+
+    def cry(self):
+        print("*stares coldly*")
+
+class Amphibian(Animal):
+
+    def __init__(self, name, age, gender, species, diet, injured, sick):
+        super().__init__(name, age, gender, species, diet, injured, sick)
+
+    def __str__(self):
+        return f"A slippery soul called {self.name}"
+
+    def cry(self):
+        print("*amphibious sounds*")
+
+class Fish(Animal):
+
+    def __init__(self, name, age, gender, species, diet, injured, sick):
+        super().__init__(name, age, gender, species, diet, injured, sick)
+
+    def __str__(self):
+        return f"A wet and wild sea creature called {self.name}"
+
+    def cry(self):
+        print("*splish, splash, splosh*")
+
+
+class Parrot(Bird):
+    def __init__(self, name, age, gender, species, diet, injured, sick, flightless: bool):
+        super().__init__(name, age, gender, species, diet, injured, sick, flightless)
+
+    def __str__(self):
+        return f"A parrot called {self.name}"
+
+    def cry(self):
+        print("Squark! Squark! Screech!")
 
 class HealthEntry:
 
