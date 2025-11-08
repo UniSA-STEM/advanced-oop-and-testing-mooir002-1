@@ -9,10 +9,12 @@ This is my own work as defined by the University's Academic Integrity Policy.
 
 import datetime
 
-
 class Animal:
 
+    next_id = 1
+
     def __init__(self, name: str, age: int, gender: str, species: str, diet: str, injured = False, sick = False):
+        self.__animal_id = Animal.next_id
         self.__name = name
         self.__age = age
         self.__gender = gender
@@ -20,8 +22,14 @@ class Animal:
         self.__diet = diet
         self.__injured = injured
         self.__sick = sick
+        self.__enclosure = None
+
+        Animal.next_id += 1
 
     # Getters and setters
+
+    def get_id(self):
+        return self.__animal_id
 
     def get_name(self):
         return self.__name
@@ -53,6 +61,12 @@ class Animal:
     def set_sick(self):
         return self.__sick
 
+    def get_enclosure(self):
+        return self.__enclosure
+
+    def set_enclosure(self, value):
+        self.__enclosure = value
+
     # Methods
 
     def cry(self):
@@ -66,6 +80,7 @@ class Animal:
 
 
     # Properties
+    id = property(get_id)
     classification = property(get_species, set_species)
     name = property(get_name)
     age = property(get_age)
@@ -73,6 +88,7 @@ class Animal:
     diet = property(get_diet)
     injured = property(get_injured, set_injured)
     sick = property (get_sick, set_sick)
+    enclosure = property(get_enclosure, set_enclosure)
 
 class Bird(Animal):
     def __init__(self, name, age, gender, species, diet, injured, sick, flightless: bool):
@@ -90,6 +106,18 @@ class Bird(Animal):
 
     #def fly(self):
 
+class Mammal(Animal):
+
+    def __init__(self, name, age, gender, species, diet, injured, sick):
+        super().__init__(name, age, gender, species, diet, injured, sick)
+
+    def __str__(self):
+        return f"A mammal called {self.name}"
+
+    def cry(self):
+        print("*generic mammalian wail*")
+
+
 
 class HealthEntry:
 
@@ -97,7 +125,7 @@ class HealthEntry:
     health_entry_instances = []
 
     def __init__(self, observation: str, medication: str, date: datetime, animal: Animal):
-        self.__id = HealthEntry.next_id
+        self.__entry_id = HealthEntry.next_id
         self.__observation = observation
         self.__medication = medication
         self.__date = date
@@ -108,7 +136,7 @@ class HealthEntry:
     # Getters and setters
 
     def get_id(self):
-        return self.__id
+        return self.__entry_id
 
     def get_observation(self):
         return self.__observation
@@ -143,15 +171,15 @@ class HealthEntry:
 
 class HealthRecord:
 
-    def __init__(self, id: int, animal: Animal, entries: dict):
-        self.__id = id
+    def __init__(self, record_id: int, animal: Animal, entries: dict):
+        self.__record_id = record_id
         self.__animal = animal
         self.__entries = entries
 
     # Getters and setters
 
     def get_id(self):
-        return self.__id
+        return self.__record_id
 
     def get_animal(self):
         return self.__animal
@@ -170,7 +198,7 @@ class HealthRecord:
     # Methods
 
     def __str__(self):
-        return(f"Health Record | ID: {self.__id} | Animal: {self.__animal.name} | Entries: {len(self.__entries)} ")
+        return f"Health Record | ID: {self.__record_id} | Animal: {self.__animal.name} | Entries: {len(self.__entries)} "
 
     def add_entry(self, health_entry):
 

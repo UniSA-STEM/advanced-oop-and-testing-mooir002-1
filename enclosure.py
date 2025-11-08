@@ -7,5 +7,81 @@ Username: mooir002
 This is my own work as defined by the University's Academic Integrity Policy.
 """
 
+class Enclosure:
 
+    def __init__(self, enclosure_id: int, name: str, size: int, biome: str, cleanliness: float, animals: list):
+        self.__enclosure_id = enclosure_id
+        self.__name = name
+        self.__size = size
+        self.__biome = biome
+        self.__cleanliness = cleanliness
+        self.__occupants = []
+        self.__animals = animals
 
+    # Getters & Setters
+
+    def get_enclosure_id(self):
+        return self.__enclosure_id
+
+    def get_name(self):
+        return self.__name
+
+    def get_size(self):
+        return self.__size
+
+    def get_biome(self):
+        return self.__biome
+
+    def get_cleanliness(self):
+        return self.__cleanliness
+
+    def set_cleanliness(self, value):
+        self.__cleanliness = value
+
+    def get_occupants(self):
+        return self.__occupants
+
+    def get_animals(self):
+        return self.__animals
+
+    # Properties
+
+    id = property(get_enclosure_id)
+    name = property(get_name)
+    size = property(get_size)
+    biome = property(get_biome)
+    cleanliness = property(get_cleanliness)
+    occupants = property(get_occupants)
+    animals = property(get_animals)
+
+    # Methods
+
+    def __str__(self):
+        return (f"""
+                | ZOO ENCLOSURE |
+                NAME: {self.__name}
+                BIOME: {self.__biome}
+                SIZE: {self.__size} square meters
+                CLEANLINESS: {self.__cleanliness}
+                OCCUPANTS: Currently housing {len(self.__occupants)} animal(s)
+                """)
+
+    def add_occupant(self, new_occupant):
+
+        for permitted_type in self.animals:
+
+            if isinstance(new_occupant, permitted_type):
+                self.__occupants.append(new_occupant)
+                print (f"added a new occupant '{new_occupant.name}' to the {self.name} enclosure")
+                new_occupant.enclosure = self
+            else:
+                print(f"{self.name} is not equipped to house {new_occupant.name}")
+
+    def remove_occupant(self, occupant):
+
+        if occupant in self.__occupants:
+            self.__occupants.remove(occupant)
+            print(f"removed occupant '{occupant.name}' from the {self.name} enclosure")
+            occupant.enclosure = None
+        else:
+            print(f"{occupant.name} is not currently in {self.name}")
