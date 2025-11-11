@@ -90,6 +90,29 @@ class Animal:
     sick = property (get_sick, set_sick)
     enclosure = property(get_enclosure, set_enclosure)
 
+"""
+--------- CORE CLASSES OF ANIMALS ---------
+Using the taxonomical classification system each zoo animal falls under at least one of the following five classes.
+
+1) Mammal
+2) Bird
+3) Reptile
+4) Amphibian
+5) Fish
+
+"""
+
+class Mammal(Animal):
+
+    def __init__(self, name, age, gender, species, diet, injured, sick):
+        super().__init__(name, age, gender, species, diet, injured, sick)
+
+    def __str__(self):
+        return f"A mammal called {self.name}"
+
+    def cry(self):
+        print("*generic mammalian wail*")
+
 class Bird(Animal):
     def __init__(self, name, age, gender, species, diet, injured, sick, flightless: bool):
         super().__init__(name, age, gender, species, diet, injured, sick)
@@ -105,17 +128,6 @@ class Bird(Animal):
         print ("Squark! Chirp! Whistle!")
 
     #def fly(self):
-
-class Mammal(Animal):
-
-    def __init__(self, name, age, gender, species, diet, injured, sick):
-        super().__init__(name, age, gender, species, diet, injured, sick)
-
-    def __str__(self):
-        return f"A mammal called {self.name}"
-
-    def cry(self):
-        print("*generic mammalian wail*")
 
 class Reptile(Animal):
 
@@ -150,6 +162,27 @@ class Fish(Animal):
     def cry(self):
         print("*splish, splash, splosh*")
 
+"""
+--------- ANIMAL SPECIES ---------
+The following species all inherit from the five main classes of animals.
+
+- Chimpanzee (Mammal) - Bessie
+- Parrot (Bird) - Beckie
+- Crocodile (Reptile) - Allan
+- Frog (Amphibian) - Fergus
+- Lionfish (Fish) - Marlin 
+
+"""
+
+class Chimpanzee(Mammal):
+    def __init__(self, name, age, gender, species, diet, injured, sick):
+        super().__init__(name, age, gender, species, diet, injured, sick)
+
+    def __str__(self):
+        return f"A cheeky chimp called {self.name}"
+
+    def cry(self):
+        print("Oooooo! Ooohh! Ahhh! AAAAHHHH!")
 
 class Parrot(Bird):
     def __init__(self, name, age, gender, species, diet, injured, sick, flightless: bool):
@@ -160,6 +193,37 @@ class Parrot(Bird):
 
     def cry(self):
         print("Squark! Squark! Screech!")
+
+class Crocodile(Reptile):
+    def __init__(self, name, age, gender, species, diet, injured, sick):
+        super().__init__(name, age, gender, species, diet, injured, sick)
+
+    def __str__(self):
+        return f"A cunning crocodile called {self.name}"
+
+    def cry(self):
+        print("*cold reptilian stare*")
+
+class Frog(Amphibian):
+    def __init__(self, name, age, gender, species, diet, injured, sick):
+        super().__init__(name, age, gender, species, diet, injured, sick)
+
+    def __str__(self):
+        return f"A frog called {self.name}"
+
+    def cry(self):
+        print("Croak... Croak... Croak...")
+
+class Lionfish(Fish):
+    def __init__(self, name, age, gender, species, diet, injured, sick):
+        super().__init__(name, age, gender, species, diet, injured, sick)
+
+    def __str__(self):
+        return f"A lionfish called {self.name}"
+
+    def cry(self):
+        print("*Blows bubble*")
+
 
 class HealthEntry:
 
@@ -260,7 +324,12 @@ class HealthRecord:
 
     def remove_entry(self, entry_key):
 
-        """Removes a health entry from the health record"""
+        """
+        Removes a health entry from the health record
+
+        Performs a check to make sure the entry is in the health record
+
+        """
 
         if entry_key in self.__entries:
             del self.__entries[entry_key]

@@ -15,7 +15,13 @@ tiko = Bird("Tiko", 5, "Male", "Toco Toucan", "fruit", False, False, False)
 massa = Bird("Massa", 1, "Female", "Budgee", "seeds", False, False, False)
 rex = Mammal("Rex", 10,"Male", "Dog", "meat", False, False)
 tommy = Reptile("Tommy", 50, "Male", "Crocodile", "meat", False, False)
-martin = Parrot("Martin", 15, "Male", "Parrot", "fruit", False, False, False)
+
+bessy = Chimpanzee("Bessy", 20, "Female", "Common Chimpanzee", "fresh fruit", False, False)
+becky  = Parrot("Becky", 9, "Female", "Sulphur Crested Cockatoo", "pine nuts", False, False, False)
+allan = Crocodile("Allan", 50, "Male", "Saltwater Crocodile", "chicken", False, False)
+fergus = Frog("Fergus", 12, "Male", "Green Tree Frog", "meal worms", False, False)
+marlin = Lionfish("Marlin", 3, "Male", "Red Lionfish", "krill", False, False)
+
 
 record = HealthRecord(213, tiko, {})
 entry = HealthEntry("Tiko is looking good", "N/A", datetime.datetime.now(), tiko)
@@ -25,7 +31,8 @@ entry3 = HealthEntry("Tiko is much improved", "N/A", datetime.datetime.now(), ti
 enclosure = Enclosure("Sunset", 300, "Tropical",[Bird, Mammal])
 enclosure_2 = Enclosure("Borealis", 500,"Arctic",[Mammal])
 enclosure_3 = Enclosure("Atlantis", 1000,"Underwater", [Fish])
-enclosure_4 = Enclosure("Endor", 100, "Forest", [Amphibian])
+enclosure_4 = Enclosure("Endor", 10, "Forest", [Amphibian])
+enclosure_5 = Enclosure("Croclave", 300,"Mangrove", [Reptile, Amphibian])
 
 zac = ZooKeeper("Zac", 30)
 maddy = ZooKeeper("Maddy", 23)
@@ -46,7 +53,9 @@ maddy.enclosure = enclosure
 
 enclosure.occupants = rex
 enclosure.occupants = tommy
-enclosure.occupants = martin
-enclosure.remove_occupant(martin)
+enclosure.occupants = marlin
+enclosure.remove_occupant(marlin)
+enclosure_4.occupants = fergus
 
 print(enclosure)
+print(enclosure.list_occupants())

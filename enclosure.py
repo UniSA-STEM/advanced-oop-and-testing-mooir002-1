@@ -63,6 +63,7 @@ class Enclosure:
         output = ""
         for item in self.__animals:
             output += (f"{item.__name__}, ")
+        output = output[:-2]
         return output
 
     # Properties
@@ -96,3 +97,10 @@ class Enclosure:
             occupant.enclosure = None
         else:
             print(f"{occupant.name} is not currently in {self.name}")
+
+    def list_occupants(self):
+        output = ""
+        for item in self.occupants:
+            output += (f"{item.name}, ")
+        output = output[:-2]
+        return f"current occupants of the {self.name} enclosure: {output}"
