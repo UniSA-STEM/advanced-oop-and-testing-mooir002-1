@@ -93,10 +93,10 @@ class Enclosure:
 
         if occupant in self.__occupants:
             self.__occupants.remove(occupant)
-            print(f"removed occupant '{occupant.name}' from the {self.name} enclosure")
+            print(f"REMOVED OCCUPANT: '{occupant.name}' from the {self.name} enclosure")
             occupant.enclosure = None
         else:
-            print(f"{occupant.name} is not currently in {self.name}")
+            print(f"UNABLE TO REMOVE: {occupant.name} is not currently in {self.name}")
 
     def list_occupants(self):
         output = ""
@@ -104,3 +104,9 @@ class Enclosure:
             output += (f"{item.name}, ")
         output = output[:-2]
         return f"current occupants of the {self.name} enclosure: {output}"
+
+    #TODO - Complete the clean_enclosure method
+    #def clean_enclosure(self, keeper):
+
+    #TODO - Add a method to list the status of all enclosures
+

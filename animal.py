@@ -6,19 +6,19 @@ ID: 110117290
 Username: mooir002
 This is my own work as defined by the University's Academic Integrity Policy.
 """
-
+from abc import ABC, abstractmethod
 import datetime
+from staff import *
 
-class Animal:
+class Animal(ABC):
 
     next_id = 1
 
-    def __init__(self, name: str, age: int, gender: str, species: str, diet: str, injured = False, sick = False):
+    def __init__(self, name: str, age: int, gender: str, diet: str, injured = False, sick = False):
         self.__animal_id = Animal.next_id
         self.__name = name
         self.__age = age
         self.__gender = gender
-        self.__species = species
         self.__diet = diet
         self.__injured = injured
         self.__sick = sick
@@ -26,10 +26,7 @@ class Animal:
 
         Animal.next_id += 1
 
-    # Getters and setters
-
-    def get_id(self):
-        return self.__animal_id
+    # Getters
 
     def get_name(self):
         return self.__name
@@ -40,55 +37,47 @@ class Animal:
     def get_gender(self):
         return self.__gender
 
-    def get_species(self):
-        return self.__species
-
-    def set_species(self, new_species: str):
-        self.__species = new_species
-
     def get_diet(self):
         return self.__diet
 
     def get_injured(self):
         return self.__injured
 
-    def set_injured(self, value: bool):
-        self.__injured = value
-
     def get_sick(self):
-        return self.__sick
-
-    def set_sick(self):
         return self.__sick
 
     def get_enclosure(self):
         return self.__enclosure
 
-    def set_enclosure(self, value):
-        self.__enclosure = value
-
-    # Methods
-
-    def cry(self):
-        print(f"{self.__name} is crying out")
-
-    def eat(self):
-        print(f"{self.__name} is having a feed... *om nom nom*")
-
-    def sleep(self):
-        print(f"{self.__name} is now asleep... Zzzzz...")
-
+    def set_enclosure(self, enclosure):
+        self.__enclosure = enclosure
 
     # Properties
-    id = property(get_id)
-    classification = property(get_species, set_species)
+
     name = property(get_name)
     age = property(get_age)
     gender = property(get_gender)
-    diet = property(get_diet)
-    injured = property(get_injured, set_injured)
-    sick = property (get_sick, set_sick)
+    injured = property(get_injured)
+    sick = property(get_sick)
     enclosure = property(get_enclosure, set_enclosure)
+
+    # Abstract Methods
+
+    @abstractmethod
+    def cry(self):
+        pass
+
+    @abstractmethod
+    def eat(self):
+        pass
+
+    @abstractmethod
+    def sleep(self):
+        pass
+
+    # Methods
+
+    #TODO - Add a method to list all the animals by species
 
 """
 --------- CORE CLASSES OF ANIMALS ---------
@@ -104,63 +93,108 @@ Using the taxonomical classification system each zoo animal falls under at least
 
 class Mammal(Animal):
 
-    def __init__(self, name, age, gender, species, diet, injured, sick):
-        super().__init__(name, age, gender, species, diet, injured, sick)
+    def __init__(self, name, age, gender, diet, injured, sick):
+        super().__init__(name, age, gender, diet, injured, sick)
 
     def __str__(self):
-        return f"A mammal called {self.name}"
+        return f"A mammal called {self.__name}"
 
+    @abstractmethod
     def cry(self):
-        print("*generic mammalian wail*")
+        pass
+
+    @abstractmethod
+    def eat(self):
+        pass
+
+    @abstractmethod
+    def sleep(self):
+        pass
 
 class Bird(Animal):
-    def __init__(self, name, age, gender, species, diet, injured, sick, flightless: bool):
-        super().__init__(name, age, gender, species, diet, injured, sick)
+    def __init__(self, name, age, gender, diet, injured, sick, flightless: bool):
+        super().__init__(name, age, gender, diet, injured, sick)
         self.__flightless = flightless
 
     def __str__(self):
         if self.__flightless:
-            return f"A flightless feathered friend called {self.name}"
+            return f"A flightless feathered friend called {self.__name}"
         else:
-            return f"A feathered friend called {self.name}"
+            return f"A feathered friend called {self.__name}"
 
+    @abstractmethod
     def cry(self):
-        print ("Squark! Chirp! Whistle!")
+        pass
+
+    @abstractmethod
+    def eat(self):
+        pass
+
+    @abstractmethod
+    def sleep(self):
+        pass
 
     #def fly(self):
 
 class Reptile(Animal):
 
-    def __init__(self, name, age, gender, species, diet, injured, sick):
-        super().__init__(name, age, gender, species, diet, injured, sick)
+    def __init__(self, name, age, gender, diet, injured, sick):
+        super().__init__(name, age, gender, diet, injured, sick)
 
     def __str__(self):
-        return f"A cold blooded reptile called {self.name}"
+        return f"A cold blooded reptile called {self.__name}"
 
+    @abstractmethod
     def cry(self):
-        print("*stares coldly*")
+        pass
+
+    @abstractmethod
+    def eat(self):
+        pass
+
+    @abstractmethod
+    def sleep(self):
+        pass
 
 class Amphibian(Animal):
 
-    def __init__(self, name, age, gender, species, diet, injured, sick):
-        super().__init__(name, age, gender, species, diet, injured, sick)
+    def __init__(self, name, age, gender, diet, injured, sick):
+        super().__init__(name, age, gender, diet, injured, sick)
 
     def __str__(self):
-        return f"A slippery soul called {self.name}"
+        return f"A slippery soul called {self.__name}"
 
+    @abstractmethod
     def cry(self):
-        print("*amphibious sounds*")
+        pass
+
+    @abstractmethod
+    def eat(self):
+        pass
+
+    @abstractmethod
+    def sleep(self):
+        pass
 
 class Fish(Animal):
 
-    def __init__(self, name, age, gender, species, diet, injured, sick):
-        super().__init__(name, age, gender, species, diet, injured, sick)
+    def __init__(self, name, age, gender, diet, injured, sick):
+        super().__init__(name, age, gender, diet, injured, sick)
 
     def __str__(self):
-        return f"A wet and wild sea creature called {self.name}"
+        return f"A wet and wild sea creature called {self.__name}"
 
+    @abstractmethod
     def cry(self):
-        print("*splish, splash, splosh*")
+        pass
+
+    @abstractmethod
+    def eat(self):
+        pass
+
+    @abstractmethod
+    def sleep(self):
+        pass
 
 """
 --------- ANIMAL SPECIES ---------
@@ -176,79 +210,125 @@ The following species all inherit from the five main classes of animals.
 
 class Chimpanzee(Mammal):
     def __init__(self, name, age, gender, species, diet, injured, sick):
-        super().__init__(name, age, gender, species, diet, injured, sick)
+        super().__init__(name, age, gender, diet, injured, sick)
+        self.__species = species
 
     def __str__(self):
-        return f"A cheeky chimp called {self.name}"
+        return f"A cheeky chimp called {self.__name}"
 
     def cry(self):
         print("Oooooo! Ooohh! Ahhh! AAAAHHHH!")
 
+    def eat(self):
+        print("Eat! Eat!")
+
+    def sleep(self):
+        print("Sleep! Sleep!")
+
 class Parrot(Bird):
     def __init__(self, name, age, gender, species, diet, injured, sick, flightless: bool):
-        super().__init__(name, age, gender, species, diet, injured, sick, flightless)
+        super().__init__(name, age, gender, diet, injured, sick, flightless)
+        self.__species = species
 
     def __str__(self):
-        return f"A parrot called {self.name}"
+        return f"A parrot called {self.__name}"
 
     def cry(self):
         print("Squark! Squark! Screech!")
 
+    def eat(self):
+        print("Eat! Eat!")
+
+    def sleep(self):
+        print("Sleep! Sleep!")
+
 class Crocodile(Reptile):
     def __init__(self, name, age, gender, species, diet, injured, sick):
-        super().__init__(name, age, gender, species, diet, injured, sick)
+        super().__init__(name, age, gender, diet, injured, sick)
+        self.__species = species
 
     def __str__(self):
-        return f"A cunning crocodile called {self.name}"
+        return f"A cunning crocodile called {self.__name}"
 
     def cry(self):
         print("*cold reptilian stare*")
 
+    def eat(self):
+        print("Eat! Eat!")
+
+    def sleep(self):
+        print("Sleep! Sleep!")
+
 class Frog(Amphibian):
     def __init__(self, name, age, gender, species, diet, injured, sick):
-        super().__init__(name, age, gender, species, diet, injured, sick)
+        super().__init__(name, age, gender, diet, injured, sick)
+        self.__species = species
 
     def __str__(self):
-        return f"A frog called {self.name}"
+        return f"A frog called {self.__name}"
 
     def cry(self):
         print("Croak... Croak... Croak...")
 
+    def eat(self):
+        print("Eat! Eat!")
+
+    def sleep(self):
+        print("Sleep! Sleep!")
+
 class Lionfish(Fish):
     def __init__(self, name, age, gender, species, diet, injured, sick):
-        super().__init__(name, age, gender, species, diet, injured, sick)
+        super().__init__(name, age, gender, diet, injured, sick)
+        self.__species = species
 
     def __str__(self):
-        return f"A lionfish called {self.name}"
+        return f"A lionfish called {self.__name}"
 
     def cry(self):
         print("*Blows bubble*")
 
+    def eat(self):
+        print("Eat! Eat!")
 
-class HealthEntry:
+    def sleep(self):
+        print("Sleep! Sleep!")
+
+
+"""
+--------- HEALTH ENTRIES ---------
+The following three classes inherit from the abstract base class of HealthEntry 
+
+- BehaviouralConcern
+- Illness
+- Injury 
+
+Each child class has its own unique attributes whilst sharing some similar base attrbiutes 
+
+"""
+class HealthEntry(ABC):
 
     next_id = 1
     health_entry_instances = []
 
-    def __init__(self, observation: str, medication: str, date: datetime, animal: Animal):
+    def __init__(self, vet, date: datetime, animal, notes: str):
         self.__entry_id = HealthEntry.next_id
-        self.__observation = observation
-        self.__medication = medication
+        self.__vet = vet
+        self.__notes = notes
         self.__date = date
         self.__animal = animal
         HealthEntry.next_id += 1
         HealthEntry.health_entry_instances.append (self)
 
-    # Getters and setters
+    # Concrete Getters and Setters
 
-    def get_id(self):
+    def get_entry_id(self):
         return self.__entry_id
 
-    def get_observation(self):
-        return self.__observation
+    def get_vet(self):
+        return self.__vet
 
-    def get_medication(self):
-        return self.__medication
+    def get_notes(self):
+        return self.__notes
 
     def get_date(self):
         return self.__date
@@ -256,28 +336,127 @@ class HealthEntry:
     def get_animal(self):
         return self.__animal
 
-    # Properties
+    # Concrete Propeties
 
-    id = property(get_id)
-    observation = property(get_observation)
-    medication = property(get_medication)
+    id = property(get_entry_id)
+    vet = property(get_vet)
+    notes = property(get_notes)
     date = property(get_date)
     animal = property(get_animal)
 
-    # Methods
-
+   # Abstract Methods
+    @abstractmethod
     def __str__(self):
         return(f"""
         | HEALTH RECORD ENTRY |
         ID: {self.id}
+        VET: {self.vet.name}
         DATE/TIME: {self.date.strftime('%H:%M:%S %d/%m/%Y')} 
-        OBSERVATION: {self.observation} 
-        MEDICATION: {self.medication}""")
+        NOTES: {self.notes} 
+        """)
 
+class BehaviouralConcern(HealthEntry):
+    def __init__(self, vet, date, animal, behaviour, observation, notes):
+        super().__init__(vet, date, animal, notes)
+        self.__behaviour = behaviour
+        self.__observation = observation
+
+    # Getters
+
+    def get_behaviour(self):
+        return self.__behaviour
+
+    def get_observation(self):
+        return self.__observation
+
+    # Properties
+
+    behaviour = property(get_behaviour)
+    observationL = property(get_observation)
+
+    def __str__(self):
+        return(f"""
+        | HEALTH ENTRY - BEHAVIOURAL CONCERN |
+        ID: {self.id}
+        VET: {self.vet.name}
+        DATE/TIME: {self.date.strftime('%H:%M:%S %d/%m/%Y')} 
+        BEHAVIOUR: {self.behaviour}
+        OBSERVATION: {self.observation} 
+        NOTES: {self.notes} """)
+
+class Injury(HealthEntry):
+
+    def __init__(self, vet, date, animal, injury, treatment, notes):
+        super().__init__(vet, date, animal, notes)
+        self.__injury = injury
+        self.__treatment = treatment
+
+    # Getters
+
+    def get_injury(self):
+        return self.__injury
+
+    def get_treatment(self):
+        return self.__treatment
+
+    # Properties
+
+    injury = property(get_injury)
+    treatment = property(get_treatment)
+
+    def __str__(self):
+        return(f"""
+        | HEALTH ENTRY - INJURY |
+        ID: {self.id}
+        VET: {self.vet.name}
+        DATE/TIME: {self.date.strftime('%H:%M:%S %d/%m/%Y')} 
+        INJURY: {self.injury}
+        TREATMENT: {self.treatment}
+        NOTES: {self.notes} """)
+
+class Illness(HealthEntry):
+
+    def __init__(self, vet, date, animal, illness, medication, notes):
+        super().__init__(vet, date, animal, notes)
+        self.__illness = illness
+        self.__medication = medication
+
+    # Getters
+
+    def get_illness(self):
+        return self.__illness
+
+    def get_medication(self):
+        return self.__medication
+
+    # Properties
+
+    illness = property(get_illness)
+    medication = property(get_medication)
+
+    def __str__(self):
+        return(f"""
+        | HEALTH ENTRY - ILLNESS |
+        ID: {self.id}
+        VET: {self.vet.name}
+        DATE/TIME: {self.date.strftime('%H:%M:%S %d/%m/%Y')} 
+        ILLNESS: {self.injury}
+        MEDICATION: {self.treatment}
+        NOTES: {self.notes} """)
+
+
+"""
+--------- HEALTH RECORD ---------
+The following class is used to store the multiple health entries for an individual animal
+
+- Unique to an animal
+- Stores health entries in a dictionary
+- Can be used to report 
+"""
 
 class HealthRecord:
 
-    def __init__(self, record_id: int, animal: Animal, entries: dict):
+    def __init__(self, record_id: int, animal, entries: dict):
         self.__record_id = record_id
         self.__animal = animal
         self.__entries = entries

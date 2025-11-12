@@ -11,11 +11,6 @@ from animal import *
 from enclosure import *
 from staff import *
 
-tiko = Bird("Tiko", 5, "Male", "Toco Toucan", "fruit", False, False, False)
-massa = Bird("Massa", 1, "Female", "Budgee", "seeds", False, False, False)
-rex = Mammal("Rex", 10,"Male", "Dog", "meat", False, False)
-tommy = Reptile("Tommy", 50, "Male", "Crocodile", "meat", False, False)
-
 bessy = Chimpanzee("Bessy", 20, "Female", "Common Chimpanzee", "fresh fruit", False, False)
 becky  = Parrot("Becky", 9, "Female", "Sulphur Crested Cockatoo", "pine nuts", False, False, False)
 allan = Crocodile("Allan", 50, "Male", "Saltwater Crocodile", "chicken", False, False)
@@ -23,12 +18,7 @@ fergus = Frog("Fergus", 12, "Male", "Green Tree Frog", "meal worms", False, Fals
 marlin = Lionfish("Marlin", 3, "Male", "Red Lionfish", "krill", False, False)
 
 
-record = HealthRecord(213, tiko, {})
-entry = HealthEntry("Tiko is looking good", "N/A", datetime.datetime.now(), tiko)
-entry2 = HealthEntry("Tiko is feeling unwell", "Panadol", datetime.datetime.now(), tiko)
-entry3 = HealthEntry("Tiko is much improved", "N/A", datetime.datetime.now(), tiko)
-
-enclosure = Enclosure("Sunset", 300, "Tropical",[Bird, Mammal])
+enclosure = Enclosure("Sunset", 300, "Tropical",[Bird, Mammal, Reptile])
 enclosure_2 = Enclosure("Borealis", 500,"Arctic",[Mammal])
 enclosure_3 = Enclosure("Atlantis", 1000,"Underwater", [Fish])
 enclosure_4 = Enclosure("Endor", 10, "Forest", [Amphibian])
@@ -43,19 +33,25 @@ reece = Veterinarian("Reece", 42)
 monica = Veterinarian("Monica", 60)
 jimmy = Veterinarian("Jimmy", 25)
 
-record.add_entry(entry)
-record.add_entry(entry2)
-record.add_entry(entry3)
+record = HealthRecord(213, allan, {})
+
+entry_1 = Illness(monica, datetime.datetime.now(), allan, "Stomach Ache", "N/A", "observe overnight for change in symptoms")
+entry_2 = BehaviouralConcern(jimmy, datetime.datetime.now(), allan, "Aggression", "Attempted to bite keeper", "leave alone for 24hrs")
+entry_3 = Injury(reece, datetime.datetime.now(), allan, "Abrasion", "bandage applied", "Brushed up against metal fence and cut leg")
+
+record.add_entry(entry_1)
+record.add_entry(entry_2)
+record.add_entry(entry_3)
 
 zac.enclosure = enclosure
 maddy.enclosure = enclosure_2
 maddy.enclosure = enclosure
 
-enclosure.occupants = rex
-enclosure.occupants = tommy
+enclosure.occupants = allan
+enclosure.occupants = bessy
 enclosure.occupants = marlin
 enclosure.remove_occupant(marlin)
 enclosure_4.occupants = fergus
 
-print(enclosure)
-print(enclosure.list_occupants())
+
+print(record)
