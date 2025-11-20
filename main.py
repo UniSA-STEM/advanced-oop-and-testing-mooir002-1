@@ -1,5 +1,5 @@
 """
-File: filename.py
+File: main.py
 Description: A brief description of this Python module.
 Author: Isaac Moore
 ID: 110117290
@@ -13,10 +13,10 @@ from animal import *
 from enclosure import *
 from staff import *
 from zoo import *
+from health_entries import *
 import datetime
 
 """
-
                 --- CREATION OF INSTANCES ---
 
 The following code instantiates all the instances of the classes
@@ -59,22 +59,39 @@ jimmy = Veterinarian("Jimmy", 25)
 
 # Creates 20 instances of health entries (x4 for each animal)
 
-entry_1 = Illness(monica, datetime.datetime.now(), allan, "Stomach Ache", "N/A", "observe overnight for change in symptoms")
-entry_2 = BehaviouralConcern(jimmy, datetime.datetime.now(), allan, "Aggression", "Attempted to bite keeper", "leave alone for 24hrs")
-entry_3 = Injury(reece, datetime.datetime.now(), allan, "Abrasion", "bandage applied", "Brushed up against metal fence and cut leg")
+entry_1 = BehaviouralConcern(jimmy, datetime.datetime.now(), bessy, "depression", "sitting in corner not usual self", "socialise with other chimps")
+entry_2 = Injury(reece, datetime.datetime.now(), bessy, "sprained ankle", "rest, ice, compression", "fell out of tree")
+entry_3 = Illness(monica, datetime.datetime.now(), bessy, "migraine", "asprin", "isolate in dark room away from lights and sounds")
+entry_4 = BehaviouralConcern(jimmy, datetime.datetime.now(), bessy, "play", "playing happily with other chimps", "back to her normal self again")
+
+entry_5 = Injury(monica, datetime.datetime.now(), becky, "broken wing", "cast", "flew into a wall")
+entry_6 = Illness(monica, datetime.datetime.now(), becky, "infection", "antibiotics", "wing has become infected")
+entry_7 = Illness(jimmy, datetime.datetime.now(), becky, "fever", "paracetamol", "infection has spread further - 20min continuous observation required")
+entry_8 = BehaviouralConcern(jimmy, datetime.datetime.now(), becky, "hallucinations", "squarking at nothing as if there was a threat", "keep fever down with paracetamol - ice bath if required")
+
+entry_9 = Illness(monica, datetime.datetime.now(), allan, "stomach ache", "n/a", "observe overnight for change in symptoms")
+entry_10 = BehaviouralConcern(jimmy, datetime.datetime.now(), allan, "aggression", "attempted to bite keeper", "leave alone for 24hrs")
+entry_11 = Injury(reece, datetime.datetime.now(), allan, "abrasion", "bandage applied", "Brushed up against metal fence and cut leg")
+entry_12 = BehaviouralConcern(monica, datetime.datetime.now(), allan, "aggression", "attempted to bite keeper... again", "leave alone for 48hrs")
+
+entry_13 = BehaviouralConcern(reece, datetime.datetime.now(), fergus, "lethargtic", "not responding to external stimuli or food", "place under observation")
+entry_14 = Injury(reece, datetime.datetime.now(), fergus, "blocked gut", "surgery", "gut is blocked - ate something he shouldn't have needs to be removed")
+entry_15 = Illness(monica, datetime.datetime.now(), fergus, "post operative", "asprin", "isolate in dark room away from lights and sounds")
+entry_16 = BehaviouralConcern(jimmy, datetime.datetime.now(), fergus, "eating", "ate a small number of meal worms", "has regained appetite - seems to be on the mend")
+
+entry_17 = Injury(jimmy, datetime.datetime.now(), marlin, "cut fin", "switches", "swam into sharp rock - needed 4 stitches")
+entry_18 = Illness(monica, datetime.datetime.now(), marlin, "infection", "antibiotics", "fin has become infected")
+entry_19 = Illness(jimmy, datetime.datetime.now(), marlin, "secondary infection", "antibiotics (higher dose)", "infection has not reduced - have upped the dose")
+entry_20 = BehaviouralConcern(reece, datetime.datetime.now(), marlin, "unusual behaviour", "swimming around in circles", "keep an eye on him - may not be fully recovered")
+
 
 """ 
                     --- POPULATING THE ZOO ---
 
 The following code will add the above animals, staff, and enclosures to the zoo.
-Zoos are used to generate reports from the lists they contain so this is critical.
+Zoos are used to generate reports from the lists they contain so this is a critical step.
 
 """
-
-
-
-
-
 
 
 
@@ -102,5 +119,5 @@ adelaide_zoo.add_staff(reece)
 adelaide_zoo.report_staff()
 
 
-print(bessy.get_health_record())
-print(marlin.get_health_record())
+print(allan.get_health_record())
+print(becky.get_health_record())
