@@ -7,15 +7,13 @@ Username: mooir002
 This is my own work as defined by the University's Academic Integrity Policy.
 """
 from abc import ABC, abstractmethod
-import datetime
-from staff import *
 
 class Animal(ABC):
 
     next_id = 1
 
     def __init__(self, name: str, age: int, gender: str, diet: str, injured = False, sick = False):
-        self.__animal_id = Animal.next_id
+        self._animal_id = Animal.next_id
         self.__name = name
         self.__age = age
         self.__gender = gender
@@ -23,10 +21,14 @@ class Animal(ABC):
         self.__injured = injured
         self.__sick = sick
         self.__enclosure = None
+        self.__health_record = HealthRecord(self)
 
         Animal.next_id += 1
 
     # Getters
+
+    def get_animal_id(self):
+        return self._animal_id
 
     def get_name(self):
         return self.__name
@@ -53,7 +55,7 @@ class Animal(ABC):
         self.__enclosure = enclosure
 
     # Properties
-
+    animal_id = (get_animal_id)
     name = property(get_name)
     age = property(get_age)
     gender = property(get_gender)
@@ -74,6 +76,9 @@ class Animal(ABC):
     @abstractmethod
     def sleep(self):
         pass
+
+    def get_health_record(self):
+        return self.__health_record
 
     # Methods
 
@@ -134,6 +139,7 @@ class Bird(Animal):
     def sleep(self):
         pass
 
+    #TODO - Add a flying class for birds
     #def fly(self):
 
 class Reptile(Animal):
@@ -199,6 +205,7 @@ class Fish(Animal):
 """
 --------- ANIMAL SPECIES ---------
 The following species all inherit from the five main classes of animals.
+I've included the names of both instances for each species (found in main.py) for clarity. 
 
 - Chimpanzee (Mammal) - Bessie
 - Parrot (Bird) - Beckie
@@ -223,7 +230,7 @@ class Chimpanzee(Mammal):
         print("Eat! Eat!")
 
     def sleep(self):
-        print("Sleep! Sleep!")
+        print("Zzzzzzzzzzzz...")
 
 class Parrot(Bird):
     def __init__(self, name, age, gender, species, diet, injured, sick, flightless: bool):
@@ -237,10 +244,10 @@ class Parrot(Bird):
         print("Squark! Squark! Screech!")
 
     def eat(self):
-        print("Eat! Eat!")
+        print("peck... peck. peck.")
 
     def sleep(self):
-        print("Sleep! Sleep!")
+        print("Zzzzzz...")
 
 class Crocodile(Reptile):
     def __init__(self, name, age, gender, species, diet, injured, sick):
@@ -254,10 +261,10 @@ class Crocodile(Reptile):
         print("*cold reptilian stare*")
 
     def eat(self):
-        print("Eat! Eat!")
+        print("chomp, chomp, chomp")
 
     def sleep(self):
-        print("Sleep! Sleep!")
+        print("Zzzzzz...")
 
 class Frog(Amphibian):
     def __init__(self, name, age, gender, species, diet, injured, sick):
@@ -271,10 +278,10 @@ class Frog(Amphibian):
         print("Croak... Croak... Croak...")
 
     def eat(self):
-        print("Eat! Eat!")
+        print("... ... ... gulp!")
 
     def sleep(self):
-        print("Sleep! Sleep!")
+        print("Zzzzzz....")
 
 class Lionfish(Fish):
     def __init__(self, name, age, gender, species, diet, injured, sick):
@@ -288,25 +295,27 @@ class Lionfish(Fish):
         print("*Blows bubble*")
 
     def eat(self):
-        print("Eat! Eat!")
+        print("nibble... nibble...")
 
     def sleep(self):
-        print("Sleep! Sleep!")
+        print("Zzzzzz....")
 
 
 """
 --------- HEALTH ENTRIES ---------
+
 The following three classes inherit from the abstract base class of HealthEntry 
 
 - BehaviouralConcern
 - Illness
 - Injury 
 
-Each child class has its own unique attributes whilst sharing some similar base attrbiutes 
+Each child class has its own unique attributes whilst sharing some similar base attributes.
 
 """
 class HealthEntry(ABC):
 
+    import datetime
     next_id = 1
     health_entry_instances = []
 
@@ -347,13 +356,7 @@ class HealthEntry(ABC):
    # Abstract Methods
     @abstractmethod
     def __str__(self):
-        return(f"""
-        | HEALTH RECORD ENTRY |
-        ID: {self.id}
-        VET: {self.vet.name}
-        DATE/TIME: {self.date.strftime('%H:%M:%S %d/%m/%Y')} 
-        NOTES: {self.notes} 
-        """)
+        return(f" | HEALTH RECORD ENTRY |\nID: {self.id}\nVET: {self.vet.name}\nDATE/TIME: {self.date.strftime('%H:%M:%S %d/%m/%Y')}\nNOTES: {self.notes}")
 
 class BehaviouralConcern(HealthEntry):
     def __init__(self, vet, date, animal, behaviour, observation, notes):
@@ -375,14 +378,7 @@ class BehaviouralConcern(HealthEntry):
     observationL = property(get_observation)
 
     def __str__(self):
-        return(f"""
-        | HEALTH ENTRY - BEHAVIOURAL CONCERN |
-        ID: {self.id}
-        VET: {self.vet.name}
-        DATE/TIME: {self.date.strftime('%H:%M:%S %d/%m/%Y')} 
-        BEHAVIOUR: {self.behaviour}
-        OBSERVATION: {self.observation} 
-        NOTES: {self.notes} """)
+        return(f" | HEALTH ENTRY - BEHAVIOURAL CONCERN |\nID: {self.id}\nVET: {self.vet.name}\nDATE/TIME: {self.date.strftime('%H:%M:%S %d/%m/%Y')}\nBEHAVIOUR: {self.behaviour}\nOBSERVATION: {self.observation}\nNOTES: {self.notes}")
 
 class Injury(HealthEntry):
 
@@ -405,14 +401,7 @@ class Injury(HealthEntry):
     treatment = property(get_treatment)
 
     def __str__(self):
-        return(f"""
-        | HEALTH ENTRY - INJURY |
-        ID: {self.id}
-        VET: {self.vet.name}
-        DATE/TIME: {self.date.strftime('%H:%M:%S %d/%m/%Y')} 
-        INJURY: {self.injury}
-        TREATMENT: {self.treatment}
-        NOTES: {self.notes} """)
+        return(f" | HEALTH ENTRY - INJURY |\nID: {self.id}\nVET: {self.vet.name}\nDATE/TIME: {self.date.strftime('%H:%M:%S %d/%m/%Y')}\nINJURY: {self.injury}\nTREATMENT: {self.treatment}\nNOTES: {self.notes}")
 
 class Illness(HealthEntry):
 
@@ -435,36 +424,34 @@ class Illness(HealthEntry):
     medication = property(get_medication)
 
     def __str__(self):
-        return(f"""
-        | HEALTH ENTRY - ILLNESS |
-        ID: {self.id}
-        VET: {self.vet.name}
-        DATE/TIME: {self.date.strftime('%H:%M:%S %d/%m/%Y')} 
-        ILLNESS: {self.injury}
-        MEDICATION: {self.treatment}
-        NOTES: {self.notes} """)
+        return(f" | HEALTH ENTRY - ILLNESS |\nID: {self.id}\nVET: {self.vet.name}\nDATE/TIME: {self.date.strftime('%H:%M:%S %d/%m/%Y')}\nILLNESS: {self.injury}\nMEDICATION: {self.treatment}\nNOTES: {self.notes}")
 
 
 """
 --------- HEALTH RECORD ---------
 The following class is used to store the multiple health entries for an individual animal
 
-- Unique to an animal
+- Unique to each animal
 - Stores health entries in a dictionary
-- Can be used to report 
+- Can be used to generate reports
+- Is automatically created when an animal is instantiated 
+ 
 """
 
 class HealthRecord:
 
-    def __init__(self, record_id: int, animal, entries: dict):
-        self.__record_id = record_id
+    record_id = 1
+
+    def __init__(self, animal):
+        self._record_id = HealthRecord.record_id
         self.__animal = animal
-        self.__entries = entries
+        self.__entries = {}
+        HealthRecord.record_id += 1
 
     # Getters and setters
 
     def get_id(self):
-        return self.__record_id
+        return self._record_id
 
     def get_animal(self):
         return self.__animal
@@ -472,18 +459,42 @@ class HealthRecord:
     def get_entries(self):
         return self.__entries
 
-    def set_entry(self, new_entry_key, new_entry):
+    def set_entry(self, new_entry):
+        new_entry_key = len(self.__entries)+1
         self.__entries[new_entry_key] = new_entry
 
-    # Properties
+    def get_illness(self):
+        count = 0
+        for entry in self.__entries.values():
+            if isinstance(entry, Illness):
+                count += 1
+        return count
 
+    def get_injury(self):
+        count = 0
+        for entry in self.__entries.values():
+            if isinstance(entry, Injury):
+                count += 1
+        return count
+
+    def get_behavioural_concern(self):
+        count = 0
+        for entry in self.__entries.values():
+            if isinstance(entry, BehaviouralConcern):
+                count += 1
+        return count
+
+    # Properties
     entries = property(get_entries)
     animal = property(get_animal)
+    injury = property(get_injury)
+    illness = property(get_illness)
+    behavioural_concern = property(get_behavioural_concern)
 
     # Methods
 
     def __str__(self):
-        return f"Health Record | ID: {self.__record_id} | Animal: {self.__animal.name} | Entries: {len(self.__entries)} "
+        return f"Health Record | ID: {self._record_id} | Animal: {self.__animal.name} | Total Entries: {len(self.__entries)}\nIllness: {self.illness}\nInjury: {self.injury}\nBehavioual Concerns {self.behavioural_concern}\n\n"
 
     def add_entry(self, health_entry):
 

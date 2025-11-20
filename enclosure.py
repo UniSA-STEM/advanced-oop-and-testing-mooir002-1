@@ -7,6 +7,10 @@ Username: mooir002
 This is my own work as defined by the University's Academic Integrity Policy.
 """
 
+from abc import ABC, abstractmethod
+
+enclosure_list = []
+
 class Enclosure:
 
     next_id = 1
@@ -20,6 +24,7 @@ class Enclosure:
         self.__occupants = []
         self.__animals = animals
         Enclosure.next_id += 1
+        enclosure_list.append(self)
 
     # Getters & Setters
 
@@ -105,8 +110,21 @@ class Enclosure:
         output = output[:-2]
         return f"current occupants of the {self.name} enclosure: {output}"
 
-    #TODO - Complete the clean_enclosure method
-    #def clean_enclosure(self, keeper):
+    def clean_enclosure(self, keeper: 'ZooKeeper'):
+
+        from staff import ZooKeeper
+
+        if isinstance(keeper, ZooKeeper) and self in keeper.enclosure:
+            print("enclosure is now clean!")
+
+        else:
+            print(f'{keeper.name} is not able to clean this enclosure')
+
 
     #TODO - Add a method to list the status of all enclosures
+    def list_enclosures(self):
+        print(enclosure_list)
+
+
+
 
