@@ -22,7 +22,7 @@ class Animal(ABC):
         self.__injured = injured
         self.__sick = sick
         self.__enclosure = None
-        self.__health_record = HealthRecord(self)
+        self._health_record = HealthRecord(self)
 
         Animal.next_id += 1
 
@@ -56,7 +56,7 @@ class Animal(ABC):
         self.__enclosure = enclosure
 
     def get_health_record(self):
-        return self.__health_record
+        return self._health_record
 
     # Properties
     animal_id = (get_animal_id)
@@ -82,12 +82,33 @@ class Animal(ABC):
     def sleep(self):
         pass
 
-    def get_health_record(self):
-        return self.__health_record
-
     # Methods
+    def print_health_record(self):
+        print(self._health_record)
 
-    #TODO - Add a method to list all the animals by species
+    def print_behavioural_entries(self):
+        from health_entries import BehaviouralConcern
+        print("---------------------------")
+        for entry in self.health_record.entries.values():
+            if isinstance (entry, BehaviouralConcern):
+                print(entry)
+        print("---------------------------")
+
+    def print_injury_entries(self):
+        from health_entries import Injury
+        print("---------------------------")
+        for entry in self.health_record.entries.values():
+            if isinstance (entry, Injury):
+                print(entry)
+        print("---------------------------")
+
+    def print_illness_entries(self):
+        from health_entries import Illness
+        print("---------------------------")
+        for entry in self.health_record.entries.values():
+           if isinstance (entry, Illness):
+                print(entry)
+        print("---------------------------")
 
 """
 --------- CORE CLASSES OF ANIMALS ---------

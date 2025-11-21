@@ -62,7 +62,7 @@ class HealthRecord:
             new_entry_key = len(self.__entries)+1
         self.__entries[new_entry_key] = new_entry
 
-    def get_illness(self):
+    def get_illness_count(self):
         from health_entries import Illness
         count = 0
         for entry in self.__entries.values():
@@ -70,7 +70,7 @@ class HealthRecord:
                 count += 1
         return count
 
-    def get_injury(self):
+    def get_injury_count(self):
         from health_entries import Injury
         count = 0
         for entry in self.__entries.values():
@@ -78,7 +78,7 @@ class HealthRecord:
                 count += 1
         return count
 
-    def get_behavioural_concern(self):
+    def get_behavioural_concern_count(self):
         from health_entries import BehaviouralConcern
         count = 0
         for entry in self.__entries.values():
@@ -89,9 +89,9 @@ class HealthRecord:
     # Properties
     entries = property(get_entries)
     animal = property(get_animal)
-    injury = property(get_injury)
-    illness = property(get_illness)
-    behavioural_concern = property(get_behavioural_concern)
+    injury_count = property(get_injury_count)
+    illness_count = property(get_illness_count)
+    behavioural_count = property(get_behavioural_concern_count)
 
     # Methods
 
@@ -109,7 +109,7 @@ class HealthRecord:
         else:
             injured = "NO"
 
-        return f"Health Record | ID: {self._record_id} | Animal: {self.__animal.name} | Total Entries: {len(self.__entries)}\n------------------\nIllness Entries: {self.illness}\nInjury Entries: {self.injury}\nBehavioural Entries: {self.behavioural_concern}\n------------------\nCurrently sick: {sick}\nCurrently injured: {injured}\n"
+        return f"Health Record | ID: {self._record_id} | Animal: {self.__animal.name} | Total Entries: {len(self.__entries)}\n------------------\nIllness Entries: {self.illness_count}\nInjury Entries: {self.injury_count}\nBehavioural Entries: {self.behavioural_count}\n------------------\nCurrently sick: {sick}\nCurrently injured: {injured}\n\n"
 
     def add_entry(self, health_entry):
         from health_entries import HealthEntry
@@ -118,7 +118,7 @@ class HealthRecord:
                 - Does the object exist?
                 - Does the health entry animal match the animal in the health record?
            Uses the set_entry function to add the entry to the record:
-                - dictionary key is the date
+                - dictionary key is an auto-generated number
                 - dictionary value is the entry object
            Type validation is enforced to ensure that only health entries are added"""
 
@@ -132,7 +132,7 @@ class HealthRecord:
 
         """
         Removes a health entry from the health record
-
+        The entry key is listed
         Performs a check to make sure the entry is in the health record
 
         """

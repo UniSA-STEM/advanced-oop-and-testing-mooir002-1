@@ -49,7 +49,7 @@ class Enclosure:
     def get_occupants(self):
         return self.__occupants
 
-    def set_occupants(self, new_occupant):
+    def set_occupant(self, new_occupant):
 
         for permitted_type in self.animals:
 
@@ -73,26 +73,19 @@ class Enclosure:
 
     # Properties
 
-    id = property(get_enclosure_id)
+    enclosure_id = property(get_enclosure_id)
     name = property(get_name)
     size = property(get_size)
     biome = property(get_biome)
     cleanliness = property(get_cleanliness)
-    occupants = property(get_occupants, set_occupants)
+    occupant = property(get_occupants, set_occupant)
     animals = property(get_animals)
+    animal_names = property(get_animal_names)
 
     # Methods
 
     def __str__(self):
-        return (f"""
-                | ZOO ENCLOSURE |
-                NAME: {self.__name}
-                BIOME: {self.__biome}
-                SIZE: {self.__size}m\u00b2
-                CLEANLINESS: {self.__cleanliness}
-                PERMITTED ANIMALS: {self.get_animal_names()}
-                OCCUPANTS: Currently housing {len(self.__occupants)} animal(s)
-                """)
+        return (f"| ZOO ENCLOSURE |\nNAME: {self.name}\nBIOME: {self.biome}\nSIZE: {self.size}m\u00b2\nCLEANLINESS: {self.cleanliness}\nPERMITTED ANIMALS: {self.animal_names}\nOCCUPANTS: Currently housing {len(self.occupants)} animal(s)")
 
     def remove_occupant(self, occupant):
 
@@ -105,25 +98,20 @@ class Enclosure:
 
     def list_occupants(self):
         output = ""
-        for item in self.occupants:
+        for item in self.occupant:
             output += (f"{item.name}, ")
         output = output[:-2]
         return f"current occupants of the {self.name} enclosure: {output}"
 
     def clean_enclosure(self, keeper: 'ZooKeeper'):
-
         from staff import ZooKeeper
-
         if isinstance(keeper, ZooKeeper) and self in keeper.enclosure:
             print("enclosure is now clean!")
-
         else:
             print(f'{keeper.name} is not able to clean this enclosure')
 
 
-    #TODO - Add a method to list the status of all enclosures
-    def list_enclosures(self):
-        print(enclosure_list)
+
 
 
 

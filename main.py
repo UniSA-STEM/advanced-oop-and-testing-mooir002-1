@@ -7,17 +7,17 @@ Username: mooir002
 This is my own work as defined by the University's Academic Integrity Policy.
 """
 
-# Imports all modules into main
+# Imports all required modules into main
 
 from animal import *
 from enclosure import *
 from staff import *
 from zoo import *
+from health_record import *
 from health_entries import *
 import datetime
 
-"""
-                --- CREATION OF INSTANCES ---
+"""                --- CREATION OF OBJECTS & INSTANCES ---
 
 The following code instantiates all the instances of the classes
 we will be using to demonstrate the functionality for this project.
@@ -85,39 +85,78 @@ entry_19 = Illness(jimmy, datetime.datetime.now(), marlin, "secondary infection"
 entry_20 = BehaviouralConcern(reece, datetime.datetime.now(), marlin, "unusual behaviour", "swimming around in circles", "keep an eye on him - may not be fully recovered")
 
 
-""" 
-                    --- POPULATING THE ZOO ---
+"""                     --- POPULATING THE ZOO ---
 
 The following code will add the above animals, staff, and enclosures to the zoo.
 Zoos are used to generate reports from the lists they contain so this is a critical step.
 
 """
 
+# adds staff to the zoo
 
-
-zac.enclosure = enclosure
-maddy.enclosure = enclosure_2
-maddy.enclosure = enclosure
-
-enclosure.occupants = allan
-enclosure.occupants = bessy
-enclosure.occupants = marlin
-enclosure.remove_occupant(marlin)
-enclosure_4.occupants = fergus
-
-
-enclosure.clean_enclosure(tom)
-
-tom.add_animal(bessy)
-
-tom.feed_animal(bessy)
-
+adelaide_zoo.add_staff(zac)
+adelaide_zoo.add_staff(maddy)
+adelaide_zoo.add_staff(tom)
+adelaide_zoo.add_staff(sarah)
+adelaide_zoo.add_staff(reece)
 adelaide_zoo.add_staff(monica)
 adelaide_zoo.add_staff(jimmy)
-adelaide_zoo.add_staff(reece)
 
-adelaide_zoo.report_staff()
+# adds enclosures to the zoo
 
+adelaide_zoo.add_enclosure(enclosure)
+adelaide_zoo.add_enclosure(enclosure_2)
+adelaide_zoo.add_enclosure(enclosure_3)
+adelaide_zoo.add_enclosure(enclosure_4)
+adelaide_zoo.add_enclosure(enclosure_5)
 
-print(allan.get_health_record())
-print(becky.get_health_record())
+# adds animals to the zoo
+
+adelaide_zoo.add_animal(bessy)
+adelaide_zoo.add_animal(becky)
+adelaide_zoo.add_animal(allan)
+adelaide_zoo.add_animal(fergus)
+adelaide_zoo.add_animal(marlin)
+
+"""         --- SETTING UP THE ENCLOSURES ---
+
+The following code will add animals to enclosures
+It will also assign staff members to oversee each enclosure
+
+"""
+
+# add zoo animals to an enclosure
+
+enclosure.set_occupant(bessy)
+enclosure.set_occupant(becky)
+enclosure_3.set_occupant(marlin)
+enclosure_4.set_occupant(fergus)
+enclosure_5.set_occupant(allan)
+
+# add zoo keepers to specific enclosures. Each keeper is responsible for at least 2 enclosures
+
+zac.enclosure = enclosure
+zac.enclosure = enclosure_3
+maddy.enclosure = enclosure_2
+maddy.enclosure = enclosure
+sarah.enclosure = enclosure_3
+sarah.enclosure = enclosure_4
+tom.enclosure = enclosure_5
+tom.enclosure = enclosure_2
+
+"""          --- SETTING UP THE ENCLOSURES ---
+
+The following code will add animals to enclosures
+It will also assign staff members to oversee each enclosure
+
+"""
+
+#allan.get_health_record
+
+#allan.print_health_record()
+
+# prints a detailed list of entries from a health record
+
+allan.print_behavioural_entries()
+allan.print_injury_entries()
+allan.print_illness_entries()

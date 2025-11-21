@@ -51,7 +51,7 @@ class HealthEntry(ABC):
         HealthEntry.health_entry_instances.append (self)
 
         # automatically adds the entry to the animal's health record
-        (self.__animal.health_record).add_entry(self)
+        self.__animal.health_record.add_entry(self)
 
         if not isinstance(animal, Animal):
             raise TypeError("animal must be an Animal object")
@@ -112,10 +112,10 @@ class BehaviouralConcern(HealthEntry):
     # Properties
 
     behaviour = property(get_behaviour)
-    observationL = property(get_observation)
+    observation = property(get_observation)
 
     def __str__(self):
-        return(f" | HEALTH ENTRY - BEHAVIOURAL CONCERN |\nID: {self.id}\nVET: {self.vet.name}\nDATE/TIME: {self.date.strftime('%H:%M:%S %d/%m/%Y')}\nBEHAVIOUR: {self.behaviour}\nOBSERVATION: {self.observation}\nNOTES: {self.notes}")
+        return(f"| HEALTH ENTRY - BEHAVIOURAL CONCERN |\nID: {self.id}\nVET: {self.vet.name}\nDATE/TIME: {self.date.strftime('%H:%M:%S %d/%m/%Y')}\nBEHAVIOUR: {self.behaviour}\nOBSERVATION: {self.observation}\nNOTES: {self.notes}\n")
 
 class Injury(HealthEntry):
 
@@ -144,7 +144,7 @@ class Injury(HealthEntry):
     treatment = property(get_treatment)
 
     def __str__(self):
-        return(f" | HEALTH ENTRY - INJURY |\nID: {self.id}\nVET: {self.vet.name}\nDATE/TIME: {self.date.strftime('%H:%M:%S %d/%m/%Y')}\nINJURY: {self.injury}\nTREATMENT: {self.treatment}\nNOTES: {self.notes}")
+        return(f"| HEALTH ENTRY - INJURY |\nID: {self.id}\nVET: {self.vet.name}\nDATE/TIME: {self.date.strftime('%H:%M:%S %d/%m/%Y')}\nINJURY: {self.injury}\nTREATMENT: {self.treatment}\nNOTES: {self.notes}\n")
 
 class Illness(HealthEntry):
 
@@ -152,7 +152,6 @@ class Illness(HealthEntry):
         super().__init__(vet, date, animal, notes)
         self.__illness = illness
         self.__medication = medication
-
 
         if not isinstance(illness, str):
             raise TypeError("illness must be a string")
@@ -174,4 +173,4 @@ class Illness(HealthEntry):
     medication = property(get_medication)
 
     def __str__(self):
-        return(f" | HEALTH ENTRY - ILLNESS |\nID: {self.id}\nVET: {self.vet.name}\nDATE/TIME: {self.date.strftime('%H:%M:%S %d/%m/%Y')}\nILLNESS: {self.injury}\nMEDICATION: {self.treatment}\nNOTES: {self.notes}")
+        return(f"| HEALTH ENTRY - ILLNESS |\nID: {self.id}\nVET: {self.vet.name}\nDATE/TIME: {self.date.strftime('%H:%M:%S %d/%m/%Y')}\nILLNESS: {self.illness}\nMEDICATION: {self.medication}\nNOTES: {self.notes}\n")
