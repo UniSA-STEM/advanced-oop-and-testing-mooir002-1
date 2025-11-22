@@ -1,6 +1,6 @@
 """
 File: zoo.py
-Description: A brief description of this Python module.
+Description: Where the zoo class is stored
 Author: Isaac Moore
 ID: 110117290
 Username: mooir002
@@ -118,7 +118,6 @@ class Zoo:
         list = []
         report = ""
         for animal in self.animals:
-            #species = animal.__class__.__name__.lower()
             species = animal.species
             if species in list:
                 pass

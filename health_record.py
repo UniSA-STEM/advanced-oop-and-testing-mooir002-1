@@ -1,6 +1,6 @@
 """
 File: health_record.py
-Description: A brief description of this Python module.
+Description: Where health entries are stored
 Author: Isaac Moore
 ID: 110117290
 Username: mooir002

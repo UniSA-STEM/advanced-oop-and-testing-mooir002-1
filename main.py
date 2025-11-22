@@ -73,9 +73,9 @@ entry_10 = BehaviouralConcern(jimmy, datetime.datetime.now(), allan, "aggression
 entry_11 = Injury(reece, datetime.datetime.now(), allan, "abrasion", "bandage applied", "Brushed up against metal fence and cut leg")
 entry_12 = BehaviouralConcern(monica, datetime.datetime.now(), allan, "aggression", "attempted to bite keeper... again", "leave alone for 48hrs")
 
-entry_13 = BehaviouralConcern(reece, datetime.datetime.now(), fergus, "lethargtic", "not responding to external stimuli or food", "place under observation")
+entry_13 = BehaviouralConcern(reece, datetime.datetime.now(), fergus, "lethargic", "not responding to external stimuli or food", "place under observation")
 entry_14 = Injury(reece, datetime.datetime.now(), fergus, "blocked gut", "surgery", "gut is blocked - ate something he shouldn't have needs to be removed")
-entry_15 = Illness(monica, datetime.datetime.now(), fergus, "post operative", "asprin", "isolate in dark room away from lights and sounds")
+entry_15 = Illness(monica, datetime.datetime.now(), fergus, "migrane", "asprin", "isolate in dark room away from lights and sounds")
 entry_16 = BehaviouralConcern(jimmy, datetime.datetime.now(), fergus, "eating", "ate a small number of meal worms", "has regained appetite - seems to be on the mend")
 
 entry_17 = Injury(jimmy, datetime.datetime.now(), marlin, "cut fin", "switches", "swam into sharp rock - needed 4 stitches")
@@ -126,11 +126,11 @@ It will also assign staff members to oversee each enclosure
 
 # add zoo animals to an enclosure
 
-enclosure.set_occupant(bessy)
-enclosure.set_occupant(becky)
-enclosure_3.set_occupant(marlin)
-enclosure_4.set_occupant(fergus)
-enclosure_5.set_occupant(allan)
+enclosure.occupant = bessy
+enclosure.occupant = becky
+enclosure_3.occupant = marlin
+enclosure_4.occupant = fergus
+enclosure_5.occupant = allan
 
 # add zoo keepers to specific enclosures. Each keeper is responsible for at least 2 enclosures
 

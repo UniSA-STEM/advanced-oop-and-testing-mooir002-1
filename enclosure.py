@@ -1,6 +1,6 @@
 """
 File: filename.py
-Description: A brief description of this Python module.
+Description: Where the enclosure class is stored
 Author: Isaac Moore
 ID: 110117290
 Username: mooir002

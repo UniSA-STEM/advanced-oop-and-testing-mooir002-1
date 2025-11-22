@@ -1,6 +1,6 @@
 """
 File: health_entries.py
-Description: A brief description of this Python module.
+Description: Where health entries are stored
 Author: Isaac Moore
 ID: 110117290
 Username: mooir002
@@ -87,7 +87,7 @@ class HealthEntry(ABC):
    # Abstract Methods
     @abstractmethod
     def __str__(self):
-        return(f" | HEALTH RECORD ENTRY |\nID: {self.id}\nANIMAL: {self.animal.name}\nVET: {self.vet.name}\nDATE/TIME: {self.date.strftime('%H:%M:%S %d/%m/%Y')}\nNOTES: {self.notes}")
+        pass
 
 class BehaviouralConcern(HealthEntry):
     def __init__(self, vet, date, animal, behaviour, observation, notes):
