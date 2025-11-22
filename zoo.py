@@ -61,11 +61,32 @@ class Zoo:
         self.enclosures.append(enclosure)
         print(f'"{enclosure.name}" enclosure has been added to {self.name} zoo')
 
+    def remove_staff(self, staff):
+        from staff import Staff
+        if not isinstance(staff, Staff):
+            raise TypeError("staff must be of type Staff")
+        self.staff.remove(staff)
+        print(f'"{staff.name}" is no longer working at {self.name} zoo')
+
+    def remove_animal(self, animal):
+        from animal import Animal
+        if not isinstance(animal, Animal):
+            raise TypeError("staff must be of type Staff")
+        self.animals.remove(animal)
+        print(f'"{animal.name}" no longer resides at {self.name} zoo')
+
+    def remove_enclosure(self, enclosure):
+        from enclosure import Enclosure
+        if not isinstance(enclosure, Enclosure):
+            raise TypeError("staff must be of type Staff")
+        self.enclosures.remove(enclosure)
+        print(f'"{enclosure.name}" has been removed from {self.name} zoo')
+
     def report_staff(self):
         print(f"| STAFF LIST - {self.name} |\n")
         report = ""
         counter = 1
-        for x in self.__staff:
+        for x in self.staff:
             report += (f"| STAFF MEMBER {counter} |\n ID: {x.staff_id}\n NAME: {x.name}\n ROLE: {x.__class__.__name__.lower()}\n\n")
             counter += 1
         print(report)
@@ -74,7 +95,49 @@ class Zoo:
         print(f"| ENCLOSURE LIST - {self.name} |\n")
         report = ""
         counter = 1
-        for x in self.__enclosures:
-            report += (f"| ENCLOSURE {counter} |\n ID: {x.enclosure_id}\n NAME: {x.name}\n {len(x.occupants)}\n")
+        for x in self.enclosures:
+            report += (f"| ENCLOSURE {counter} |\nID: {x.enclosure_id}\nNAME: {x.name}\nNUMBER OF OCCUPANTS: {len(x.occupant)}\n\n")
+            counter += 1
+        print(report)
+        print("----------------")
 
-    # TODO - Add a method to list all the animals by species
+    def report_animals(self):
+        print(f"| ANIMAL LIST - {self.name} |\n")
+        report = ""
+
+        counter = 1
+        for x in self.animals:
+            report += (
+                f"| ANIMAL {counter} |\nID: {x.animal_id()}\nNAME: {x.name}\nENCLOSURE: {x.enclosure.name}\nSICK: {x.sick}\nINJURED: {x.injured}\n\n")
+            counter += 1
+        print(report)
+        print("----------------")
+
+    def report_species(self):
+        print(f"| SPECIES LIST - {self.name} |")
+        list = []
+        report = ""
+        for animal in self.animals:
+            #species = animal.__class__.__name__.lower()
+            species = animal.species
+            if species in list:
+                pass
+            else:
+                list.append(species)
+                report += f"- {species}\n"
+        print(f'Number of unique species: {len(list)}')
+        print(report)
+
+    def report_categories(self):
+        print(f"| ANIMAL CATEGORY LIST - {self.name} |")
+        list = []
+        report = ""
+        for animal in self.animals:
+            category = animal.__class__.__name__.lower()
+            if category in list:
+                pass
+            else:
+                list.append(category)
+                report += f"- {category}\n"
+        print(f'Unique animal categories: {len(list)}')
+        print(report)

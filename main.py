@@ -1,6 +1,6 @@
 """
 File: main.py
-Description: A brief description of this Python module.
+Description: This is where all the main code shall run
 Author: Isaac Moore
 ID: 110117290
 Username: mooir002
@@ -13,7 +13,6 @@ from animal import *
 from enclosure import *
 from staff import *
 from zoo import *
-from health_record import *
 from health_entries import *
 import datetime
 
@@ -144,19 +143,78 @@ sarah.enclosure = enclosure_4
 tom.enclosure = enclosure_5
 tom.enclosure = enclosure_2
 
-"""          --- SETTING UP THE ENCLOSURES ---
+"""         --- HEALTH SYSTEM FUNCTIONALITY ---
 
-The following code will add animals to enclosures
-It will also assign staff members to oversee each enclosure
+The following reports all relate to animal health records and their entries
 
 """
 
-#allan.get_health_record
+# prints a summary of a specific animal's health record
+# how many entries do they have etc...
 
-#allan.print_health_record()
+bessy.print_health_record()
 
-# prints a detailed list of entries from a health record
+# prints every single entry from a specific animal's health record
+# includes specific details from each entry such as what the issue was.
+
+marlin.print_all_entries()
+
+# prints a details list of the specific categories of entries from a health record
+# includes specific details from each entry such as what the issue was.
 
 allan.print_behavioural_entries()
-allan.print_injury_entries()
-allan.print_illness_entries()
+becky.print_injury_entries()
+fergus.print_illness_entries()
+
+# removes a specific health entry from an animal's health record
+
+allan.health_record.remove_entry(0)
+becky.health_record.remove_entry(2)
+
+# vets can diagnose animals as sick or well - this updates their health record
+
+jimmy.diagnose_sick(bessy)
+reece.diagnose_well(bessy)
+
+# vets can also diagnose animals as injured or healed - this updates their health record
+
+reece.diagnose_injured(bessy)
+monica.diagnose_healed(bessy)
+
+"""     --- OTHER ZOO FUNCTIONALITY ---     
+
+- Removing animals, staff, enclosures
+- Report on enclosures, staff and animals
+- Report on species
+
+"""
+
+# removes a specific staff member from the zoo
+
+adelaide_zoo.remove_staff(jimmy)
+
+# removes a specific animal from the zoo
+
+adelaide_zoo.remove_animal(marlin)
+
+# removes a specific enclosure from the zoo
+
+adelaide_zoo.remove_enclosure(enclosure)
+
+# generate a report on all the enclosures within the zoo
+
+adelaide_zoo.report_enclosures()
+
+# generate a report on all the staff within the zoo
+
+adelaide_zoo.report_staff()
+
+# generate a report on all the animals within the zoo
+
+adelaide_zoo.report_animals()
+
+# generates are report of all the different species of animals in the zoo
+
+adelaide_zoo.report_species()
+
+adelaide_zoo.report_categories()

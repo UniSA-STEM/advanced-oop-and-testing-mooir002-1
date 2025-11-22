@@ -6,10 +6,11 @@ ID: 110117290
 Username: mooir002
 This is my own work as defined by the University's Academic Integrity Policy.
 """
-from zoo import Zoo
+
+from abc import ABC, abstractmethod
 
 
-class Staff:
+class Staff(ABC):
 
     from zoo import Zoo
     next_id = 1
@@ -88,7 +89,6 @@ class ZooKeeper(Staff):
         if isinstance(animal, Animal) and animal in self.animal.values():
             print(f"{animal.name} is being fed...")
             animal.eat()
-
         else:
             print(f"{self.name} is unable to feed {animal.name}")
 
@@ -99,15 +99,46 @@ class Veterinarian(Staff):
         self.__enclosures = {}
 
    def __str__(self):
-        return f"A veterinarian called {self.name}"
+       return (f"A veterinarian called {self.name}")
 
-   #TODO - complete the health check method
-   #def health_check(self, animal):
+   def diagnose_sick(self, animal):
+       from animal import Animal
+       if isinstance (animal, Animal) and animal.sick == False:
+           animal.sick = True
+           print(f"{animal.name} has been diagnosed as sick by {self.name}")
+           return
+       elif isinstance(animal, Animal) and animal.sick == True:
+           print(f"{animal.name} has already been diagnosed as sick")
+           return
 
+   def diagnose_well(self, animal):
+       from animal import Animal
+       if isinstance (animal, Animal) and animal.sick == True:
+           animal.sick = False
+           print(f"{animal.name} has been cleared as well by {self.name}")
+           return
+       elif isinstance(animal, Animal) and animal.sick == False:
+           print(f"{animal.name} is already listed as well")
+           return
 
+   def diagnose_injured(self, animal):
+       from animal import Animal
+       if isinstance (animal, Animal) and animal.injured == False:
+           animal.injured = True
+           print(f"{animal.name} has been diagnosed as injured by {self.name}")
+           return
+       elif isinstance(animal, Animal) and animal.injured == True:
+           print(f"{animal.name} has already been diagnosed as injured")
+           return
 
-
-
-
+   def diagnose_healed(self, animal):
+       from animal import Animal
+       if isinstance (animal, Animal) and animal.injured == True:
+           animal.injured = False
+           print(f"{animal.name} has been cleared as healed by {self.name}")
+           return
+       elif isinstance(animal, Animal) and animal.injured == False:
+           print(f"{animal.name} is not injured")
+           return
 
 

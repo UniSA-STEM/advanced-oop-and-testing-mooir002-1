@@ -46,8 +46,14 @@ class Animal(ABC):
     def get_injured(self):
         return self.__injured
 
+    def set_injured(self, value):
+        self.__injured = value
+
     def get_sick(self):
         return self.__sick
+
+    def set_sick(self, value):
+        self.__sick = value
 
     def get_enclosure(self):
         return self.__enclosure
@@ -63,8 +69,8 @@ class Animal(ABC):
     name = property(get_name)
     age = property(get_age)
     gender = property(get_gender)
-    injured = property(get_injured)
-    sick = property(get_sick)
+    injured = property(get_injured, set_injured)
+    sick = property(get_sick, set_sick)
     enclosure = property(get_enclosure, set_enclosure)
     health_record = property(get_health_record)
 
@@ -83,31 +89,43 @@ class Animal(ABC):
         pass
 
     # Methods
+
     def print_health_record(self):
         print(self._health_record)
+
+    def print_all_entries(self):
+        from health_entries import BehaviouralConcern, Illness, Injury
+        print("---------------------------")
+        for key, entry in self.health_record.entries.items():
+            print(entry)
+            print(f"ENTRY KEY: {key}\n")
+            print("---------------------------")
 
     def print_behavioural_entries(self):
         from health_entries import BehaviouralConcern
         print("---------------------------")
-        for entry in self.health_record.entries.values():
+        for key, entry in self.health_record.entries.items():
             if isinstance (entry, BehaviouralConcern):
                 print(entry)
+                print(f"ENTRY KEY: {key}\n")
         print("---------------------------")
 
     def print_injury_entries(self):
         from health_entries import Injury
         print("---------------------------")
-        for entry in self.health_record.entries.values():
+        for key, entry in self.health_record.entries.items():
             if isinstance (entry, Injury):
                 print(entry)
+                print(f"ENTRY KEY: {key}\n")
         print("---------------------------")
 
     def print_illness_entries(self):
         from health_entries import Illness
         print("---------------------------")
-        for entry in self.health_record.entries.values():
-           if isinstance (entry, Illness):
+        for key, entry in self.health_record.entries.items():
+            if isinstance (entry, Illness):
                 print(entry)
+                print(f"ENTRY KEY: {key}\n")
         print("---------------------------")
 
 """
@@ -229,9 +247,9 @@ class Fish(Animal):
         pass
 
 """
---------- ANIMAL SPECIES ---------
-The following species all inherit from the five main classes of animals.
-I've included the names of both instances for each species (found in main.py) for clarity. 
+--------- ANIMAL CATEGORIES ---------
+The following categories all inherit from the five main classes of animals.
+I've included the names of both instances for each category (found in main.py) for clarity. 
 
 - Chimpanzee (Mammal) - Bessie
 - Parrot (Bird) - Beckie
@@ -249,6 +267,9 @@ class Chimpanzee(Mammal):
     def __str__(self):
         return f"A cheeky chimp called {self.__name}"
 
+    def get_species(self):
+        return self.__species
+
     def cry(self):
         print("Oooooo! Ooohh! Ahhh! AAAAHHHH!")
 
@@ -258,6 +279,8 @@ class Chimpanzee(Mammal):
     def sleep(self):
         print("Zzzzzzzzzzzz...")
 
+    species = property(get_species)
+
 class Parrot(Bird):
     def __init__(self, name, age, gender, species, diet, injured, sick, flightless: bool):
         super().__init__(name, age, gender, diet, injured, sick, flightless)
@@ -265,6 +288,9 @@ class Parrot(Bird):
 
     def __str__(self):
         return f"A parrot called {self.__name}"
+
+    def get_species(self):
+        return self.__species
 
     def cry(self):
         print("Squark! Squark! Screech!")
@@ -275,6 +301,8 @@ class Parrot(Bird):
     def sleep(self):
         print("Zzzzzz...")
 
+    species = property(get_species)
+
 class Crocodile(Reptile):
     def __init__(self, name, age, gender, species, diet, injured, sick):
         super().__init__(name, age, gender, diet, injured, sick)
@@ -282,6 +310,9 @@ class Crocodile(Reptile):
 
     def __str__(self):
         return f"A cunning crocodile called {self.__name}"
+
+    def get_species(self):
+        return self.__species
 
     def cry(self):
         print("*cold reptilian stare*")
@@ -292,6 +323,8 @@ class Crocodile(Reptile):
     def sleep(self):
         print("Zzzzzz...")
 
+    species = property(get_species)
+
 class Frog(Amphibian):
     def __init__(self, name, age, gender, species, diet, injured, sick):
         super().__init__(name, age, gender, diet, injured, sick)
@@ -299,6 +332,9 @@ class Frog(Amphibian):
 
     def __str__(self):
         return f"A frog called {self.__name}"
+
+    def get_species(self):
+        return self.__species
 
     def cry(self):
         print("Croak... Croak... Croak...")
@@ -309,6 +345,8 @@ class Frog(Amphibian):
     def sleep(self):
         print("Zzzzzz....")
 
+    species = property(get_species)
+
 class Lionfish(Fish):
     def __init__(self, name, age, gender, species, diet, injured, sick):
         super().__init__(name, age, gender, diet, injured, sick)
@@ -316,6 +354,9 @@ class Lionfish(Fish):
 
     def __str__(self):
         return f"A lionfish called {self.__name}"
+
+    def get_species(self):
+        return self.__species
 
     def cry(self):
         print("*Blows bubble*")
@@ -325,6 +366,8 @@ class Lionfish(Fish):
 
     def sleep(self):
         print("Zzzzzz....")
+
+    species = property(get_species)
 
 
 

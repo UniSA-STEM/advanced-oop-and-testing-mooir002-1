@@ -132,13 +132,13 @@ class HealthRecord:
 
         """
         Removes a health entry from the health record
-        The entry key is listed
+        The entry key is separate to the health entry ID
         Performs a check to make sure the entry is in the health record
 
         """
 
-        if entry_key in self.__entries:
-            del self.__entries[entry_key]
-            print(f"Health entry with ID: {entry_key} removed successfully")
+        if entry_key in self.entries:
+            print(f"Health entry with (ID: {self.entries[entry_key].id} and KEY: {entry_key}) was successfully removed from {self.animal.name}'s health record")
+            del self.entries[entry_key]
         else:
             print("No such entry exists within this health record")

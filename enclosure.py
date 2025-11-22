@@ -85,7 +85,7 @@ class Enclosure:
     # Methods
 
     def __str__(self):
-        return (f"| ZOO ENCLOSURE |\nNAME: {self.name}\nBIOME: {self.biome}\nSIZE: {self.size}m\u00b2\nCLEANLINESS: {self.cleanliness}\nPERMITTED ANIMALS: {self.animal_names}\nOCCUPANTS: Currently housing {len(self.occupants)} animal(s)")
+        return (f"| ZOO ENCLOSURE |\nNAME: {self.name}\nBIOME: {self.biome}\nSIZE: {self.size}m\u00b2\nCLEANLINESS: {self.cleanliness}\nPERMITTED ANIMALS: {self.animal_names}\nOCCUPANTS: Currently housing {len(self.occupant)} animal(s)")
 
     def remove_occupant(self, occupant):
 

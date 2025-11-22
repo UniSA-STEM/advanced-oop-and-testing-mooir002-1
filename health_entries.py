@@ -87,7 +87,7 @@ class HealthEntry(ABC):
    # Abstract Methods
     @abstractmethod
     def __str__(self):
-        return(f" | HEALTH RECORD ENTRY |\nID: {self.id}\nVET: {self.vet.name}\nDATE/TIME: {self.date.strftime('%H:%M:%S %d/%m/%Y')}\nNOTES: {self.notes}")
+        return(f" | HEALTH RECORD ENTRY |\nID: {self.id}\nANIMAL: {self.animal.name}\nVET: {self.vet.name}\nDATE/TIME: {self.date.strftime('%H:%M:%S %d/%m/%Y')}\nNOTES: {self.notes}")
 
 class BehaviouralConcern(HealthEntry):
     def __init__(self, vet, date, animal, behaviour, observation, notes):
@@ -115,7 +115,7 @@ class BehaviouralConcern(HealthEntry):
     observation = property(get_observation)
 
     def __str__(self):
-        return(f"| HEALTH ENTRY - BEHAVIOURAL CONCERN |\nID: {self.id}\nVET: {self.vet.name}\nDATE/TIME: {self.date.strftime('%H:%M:%S %d/%m/%Y')}\nBEHAVIOUR: {self.behaviour}\nOBSERVATION: {self.observation}\nNOTES: {self.notes}\n")
+        return(f"| HEALTH ENTRY - BEHAVIOURAL CONCERN |\nID: {self.id}\nANIMAL: {self.animal.name}\nVET: {self.vet.name}\nDATE/TIME: {self.date.strftime('%H:%M:%S %d/%m/%Y')}\nBEHAVIOUR: {self.behaviour}\nOBSERVATION: {self.observation}\nNOTES: {self.notes}\n")
 
 class Injury(HealthEntry):
 
@@ -144,7 +144,7 @@ class Injury(HealthEntry):
     treatment = property(get_treatment)
 
     def __str__(self):
-        return(f"| HEALTH ENTRY - INJURY |\nID: {self.id}\nVET: {self.vet.name}\nDATE/TIME: {self.date.strftime('%H:%M:%S %d/%m/%Y')}\nINJURY: {self.injury}\nTREATMENT: {self.treatment}\nNOTES: {self.notes}\n")
+        return(f"| HEALTH ENTRY - INJURY |\nID: {self.id}\nANIMAL: {self.animal.name}\nVET: {self.vet.name}\nDATE/TIME: {self.date.strftime('%H:%M:%S %d/%m/%Y')}\nINJURY: {self.injury}\nTREATMENT: {self.treatment}\nNOTES: {self.notes}\n")
 
 class Illness(HealthEntry):
 
@@ -173,4 +173,4 @@ class Illness(HealthEntry):
     medication = property(get_medication)
 
     def __str__(self):
-        return(f"| HEALTH ENTRY - ILLNESS |\nID: {self.id}\nVET: {self.vet.name}\nDATE/TIME: {self.date.strftime('%H:%M:%S %d/%m/%Y')}\nILLNESS: {self.illness}\nMEDICATION: {self.medication}\nNOTES: {self.notes}\n")
+        return(f"| HEALTH ENTRY - ILLNESS |\nID: {self.id}\nANIMAL: {self.animal.name}\nVET: {self.vet.name}\nDATE/TIME: {self.date.strftime('%H:%M:%S %d/%m/%Y')}\nILLNESS: {self.illness}\nMEDICATION: {self.medication}\nNOTES: {self.notes}\n")
